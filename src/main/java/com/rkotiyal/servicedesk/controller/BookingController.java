@@ -2,6 +2,7 @@ package com.rkotiyal.servicedesk.controller;
 
 import com.rkotiyal.servicedesk.model.Booking;
 import com.rkotiyal.servicedesk.repository.BookingRepository;
+import com.rkotiyal.servicedesk.service.BookingService;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -11,28 +12,24 @@ import java.util.List;
 @RequestMapping("/api/bookings")
 public class BookingController {
 
-    private final BookingRepository repository;
+    private final BookingService bookingService;
 
-    public BookingController(BookingRepository repository){
-        this.repository = repository;
+    public BookingController(BookingService bookingService){
+        this.bookingService = bookingService;
     }
 
     @GetMapping
     public List<Booking> getAllBookings(){
-        return repository.findAll();
+        return bookingService.getAllBookings();
     }
 
     @PostMapping
     public Booking createBooking(@RequestBody Booking booking){
-        return repository.save(booking);
+        return bookingService.createBooking(booking);
     }
 
     @PatchMapping("/{id}/cancel")
     public Booking cancelBooking(@PathVariable Long id) {
-        Booking booking = repository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
-
-        booking.setCanceled(true);
-        return repository.save(booking);
+        return bookingService.cancelBooking(id);
     }
 }
