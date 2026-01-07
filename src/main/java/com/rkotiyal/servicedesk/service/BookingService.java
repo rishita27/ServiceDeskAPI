@@ -1,5 +1,6 @@
 package com.rkotiyal.servicedesk.service;
 
+import com.rkotiyal.servicedesk.exception.BookingNotFoundException;
 import com.rkotiyal.servicedesk.model.Booking;
 import com.rkotiyal.servicedesk.repository.BookingRepository;
 import org.springframework.stereotype.Service;
@@ -34,7 +35,7 @@ public class BookingService {
 
     public Booking cancelBooking(Long id) {
         Booking booking = bookingRepository.findById(id)
-                .orElseThrow(() -> new RuntimeException("Booking not found"));
+                .orElseThrow(() -> new BookingNotFoundException(id));
 
         booking.setCanceled(true);
         return bookingRepository.save(booking);
