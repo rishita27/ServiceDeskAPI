@@ -1,6 +1,6 @@
 package com.rkotiyal.servicedesk.controller;
 
-import com.rkotiyal.servicedesk.model.Service;
+import com.rkotiyal.servicedesk.model.ServiceEntity;
 import com.rkotiyal.servicedesk.repository.ServiceRepository;
 import org.springframework.web.bind.annotation.*;
 
@@ -17,12 +17,12 @@ public class ServiceController {
     }
 
     @GetMapping
-    public List<Service> getAllService() {
+    public List<ServiceEntity> getAllService() {
         return repository.findAll();
     }
 
     @PostMapping
-    public Service createService(@RequestBody Service service){
+    public ServiceEntity createService(@RequestBody ServiceEntity service){
         return repository.save(service);
     }
 

@@ -17,7 +17,7 @@ public class Booking {
 
     @ManyToOne
     @JoinColumn(name = "service_id")
-    private Service service;
+    private ServiceEntity service;
 
     private boolean canceled = false;
 
@@ -45,11 +45,11 @@ public class Booking {
         this.bookingTime = bookingTime;
     }
 
-    public Service getService() {
+    public ServiceEntity getService() {
         return service;
     }
 
-    public void setService(Service service) {
+    public void setService(ServiceEntity service) {
         this.service = service;
     }
 
